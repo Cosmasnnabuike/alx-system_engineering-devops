@@ -1,4 +1,5 @@
-# using puppet to make changes to the default ssh config file
+#!/usr/bin/env bash
+## using puppet to make changes to the default ssh config file
 # so that one can connect to a server without typing a password.
 
 include stdlib
