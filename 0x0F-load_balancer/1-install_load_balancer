@@ -1,24 +1,19 @@
 #!/usr/bin/env bash
-# Installs HAProxy with the following configurations:
-# - Enables management via the init script.
-# - Distributes requests using a round-robin algorithm.
+# install load balancer
 
-sudo apt-get install -y haproxy
+sudo apt-get -y update
+sudo apt-get -y install haproxy
+sudo chown $USER:USER /etc/haproxy/haproxy.cfg
 
-echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
+echo "
+frontend cosmasnnabuike
+	bind *:80
+	mode http
+	default_backend app
 
-cat <<EOT | sudo tee -a /etc/haproxy/haproxy.cfg
-frontend cosmasnnabuike.tech
-    timeout client  30000
-    bind 0:80
-    default_backend cosmasnnabuike.tech_backend
-
-backend cosmasnnabuike.tech_backend
-    timeout connect  3000
-    timeout server  30000
-    balance roundrobin
-    server 218560-web-01 100.26.168.46:80 check
-    server 218560-web-02 3.83.227.213:80 check
-EOT
+backend app
+	balance roundrobin
+	server 478264-web-01 100.26.168.46:80 check
+	server 478264-web-02 3.83.227.213:80 check" >> /etc/haproxy/haproxy.cfg
 
 sudo service haproxy restart
