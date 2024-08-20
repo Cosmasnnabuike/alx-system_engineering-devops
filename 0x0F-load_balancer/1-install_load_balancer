@@ -17,8 +17,8 @@ backend cosmasnnabuike.tech_backend
     timeout connect  3000
     timeout server  30000
     balance roundrobin
-    server 218560-web-01 100.26.168.46 check
-    server 218560-web-02 3.83.227.213 check
+    server 218560-web-01 100.26.168.46:80 check
+    server 218560-web-02 3.83.227.213:80 check
 EOT
 
 sudo service haproxy restart
