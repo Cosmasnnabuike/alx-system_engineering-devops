@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# install load balancer
+
+sudo apt-get -y update
+sudo apt-get -y install haproxy
+sudo chown $USER:USER /etc/haproxy/haproxy.cfg
+
+echo "
+frontend cosmasnnabuike
+	bind *:80
+	mode http
+	default_backend app
+
+backend app
+	balance roundrobin
+	server 478264-web-01 100.26.168.46:80 check
+	server 478264-web-02 3.83.227.213:80 check" >> /etc/haproxy/haproxy.cfg
+
+sudo service haproxy restart
