@@ -8,17 +8,17 @@ sudo apt-get install -y haproxy
 echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
 
 cat <<EOT | sudo tee -a /etc/haproxy/haproxy.cfg
-frontend Randommallstudio.tech
+frontend cosmasnnabuike.tech
     timeout client  30000
     bind 0:80
-    default_backend Randommallstudio.tech_backend
+    default_backend cosmasnnabuike.tech_backend
 
-backend Randommallstudio.tech_backend
+backend cosmasnnabuike.tech_backend
     timeout connect  3000
     timeout server  30000
     balance roundrobin
-    server 218560-web-01 54.87.224.2:80 check
-    server 218560-web-02 54.89.109.20:80 check
+    server 218560-web-01 100.26.168.46 check
+    server 218560-web-02 3.83.227.213 check
 EOT
 
 sudo service haproxy restart
